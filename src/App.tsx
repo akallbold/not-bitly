@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import {useState} from 'react';
 import './App.css';
-
+import Grid2 from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 function App() {
+
+  const [input, setInput] = useState<string>("")
+  const handleSubmit = () =>{
+    console.log(input)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <Grid2 container>
+<Grid2>
+
+     <TextField onChange={(e)=>setInput(e.target.value)} variant="outlined" value={input}/>
+     <Button onClick={handleSubmit}/>
+</Grid2>
+<Grid2>
+
+     <p>Bitly link will pop up here</p>
+</Grid2>
+  </Grid2>
+      
     </div>
   );
 }
