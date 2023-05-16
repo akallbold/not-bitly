@@ -10,7 +10,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // B64
-const notBitlyBase = "notbitly.com/";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function App() {
   const [input, setInput] = useState<string>("");
@@ -75,8 +75,8 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         console.log({ res });
-        console.log("new site! ", `${notBitlyBase}${res.id}`);
-        setNewBitlyAddress(`${notBitlyBase}${res.id}`);
+        console.log("new site! ", `${baseUrl}${res.id}`);
+        setNewBitlyAddress(`${baseUrl}${res.id}`);
         setLoading(false);
       })
       .catch((res) => {
