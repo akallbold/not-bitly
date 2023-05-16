@@ -6,17 +6,18 @@ const prisma = new PrismaClient();
 
 
 const handler: Handler = async (event) => {
+  console.log("event.body: ", event.body)
   if(event.body) {
-    const shortUrl = JSON.parse(event.body) 
-    const bitlyData = await prisma.sites.findFirst({
+    const data = JSON.parse(event.body) 
+    const siteData = await prisma.sites.findFirst({
       where: {
-        id: BigInt(shortUrl.id),
+        id: data.id,
       },
     });
 
     return {
       statusCode: 200,
-      body: JSON.stringify(bitlyData)
+      body: JSON.stringify(siteData)
     };
   }
 

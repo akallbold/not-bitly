@@ -3,7 +3,7 @@ generator client {
   previewFeatures = ["cockroachdb"]
   // The following is needed when using deploying to netlify using `netlify deploy` locally
   // It can be removed if the deployment is configured on netlify to automatically deploy for each commit
-  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+  binaryTargets   = ["native", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
@@ -11,10 +11,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//q: how to make the id below unique
+// a: 
 model sites {
-  id        String  @id 
-  shortUrl  String
+  id        String   @id
   longUrl   String
   dateAdded DateTime @default(now())
 }
-
