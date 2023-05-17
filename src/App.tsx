@@ -19,7 +19,6 @@ function App() {
   const [newBitlyAddress, setNewBitlyAddress] = useState<string>("");
 
   const { id } = useParams();
-  console.log({ id });
 
   const createRandomString = () => {
     let result = "";
@@ -47,7 +46,6 @@ function App() {
         if (!res) {
           setError("No URL found");
         } else {
-          console.log("redirecting to ", res.longUrl);
           goToLongUrl(res.longUrl);
         }
         setLoading(false);
@@ -99,7 +97,6 @@ function App() {
   }, [id]);
 
   const copyText = () => {
-    console.log({ newBitlyAddress, navigator });
     navigator.clipboard.writeText(newBitlyAddress);
   };
 
