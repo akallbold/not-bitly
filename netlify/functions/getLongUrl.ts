@@ -3,10 +3,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-
-
 const handler: Handler = async (event) => {
-  console.log("event.body: ", event.body)
   if(event.body) {
     const data = JSON.parse(event.body) 
     const siteData = await prisma.sites.findFirst({

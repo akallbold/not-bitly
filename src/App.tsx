@@ -34,7 +34,6 @@ function App() {
 
   const getRedirectUrl = () => {
     setLoading(true);
-    console.log("get redirect url");
     fetch("/.netlify/functions/getLongUrl", {
       headers: {
         Accept: "application/json",
@@ -45,13 +44,11 @@ function App() {
     })
       .then((res) => res.json())
       .then((res) => {
-        // redirect user to the longURL site
-        console.log({ res });
         if (!res) {
           setError("No URL found");
         } else {
           console.log("redirecting to ", res.longUrl);
-          window.open(res.longUrl, "_self");
+          goToLongUrl(res.longUrl);
         }
         setLoading(false);
       })
@@ -59,6 +56,18 @@ function App() {
         setError(res);
         setLoading(false);
       });
+  };
+
+  const goToLongUrl = (site: string) => {
+    const cleanLink = addPrefixIfNeeded(site);
+    window.open(cleanLink, "_self");
+  };
+
+  const addPrefixIfNeeded = (url: string) => {
+    if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+    if (!/^www\./i.test(url))
+      url = url.replace(/^(https?:\/\/)?(www\.)?/i, "$1www.");
+    return url;
   };
 
   const createRedirectUrl = () => {
@@ -74,13 +83,10 @@ function App() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log({ res });
-        console.log("new site! ", `${baseUrl}${res.id}`);
         setNewBitlyAddress(`${baseUrl}${res.id}`);
         setLoading(false);
       })
       .catch((res) => {
-        console.log({ res });
         setError(res);
         setLoading(false);
       });
@@ -93,15 +99,13 @@ function App() {
   }, [id]);
 
   const copyText = () => {
+    console.log({ newBitlyAddress, navigator });
     navigator.clipboard.writeText(newBitlyAddress);
   };
 
   if (error) console.log({ error });
 
-  if (loading) return <CircularProgress />;
-
   if (id) return null;
-
   return (
     <Grid2
       container
@@ -132,10 +136,11 @@ function App() {
           alignContent="center"
           justifyContent="center"
         >
-          {newBitlyAddress && (
+          {loading && <CircularProgress />}
+          {newBitlyAddress && !loading && (
             <>
               <a
-                href={newBitlyAddress}
+                href={`http://www.${newBitlyAddress}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >

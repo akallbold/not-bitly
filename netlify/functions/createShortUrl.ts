@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-
 const handler: Handler = async (event, context) => {
   if(event.body) {
     const urlData = JSON.parse(event.body) 
