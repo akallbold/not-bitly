@@ -11,8 +11,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//q: how to make the id below unique
-// a: 
 model sites {
   id        String   @id
   longUrl   String

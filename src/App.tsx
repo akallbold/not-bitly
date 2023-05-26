@@ -5,12 +5,16 @@ import TextField from "@mui/material/TextField";
 import { useParams } from "react-router";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // B64
+
 const baseUrl = process.env.REACT_APP_BASE_URL;
+
+const createShortUrlEndpoint =
+  "https://hilarious-dieffenbachia-9af0ce.netlify.app/.netlify/functions/createShortUrl";
 
 function App() {
   const [input, setInput] = useState<string>("");
@@ -71,16 +75,13 @@ function App() {
   const createRedirectUrl = () => {
     setLoading(true);
     const newShortUrlId = createRandomString();
-    fetch("/.netlify/functions/createShortUrl", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+    fetch(createShortUrlEndpoint, {
       method: "POST",
       body: JSON.stringify({ fullUrl: input, newShortUrlId }),
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log({ res });
         setNewBitlyAddress(`${baseUrl}${res.id}`);
         setLoading(false);
       })
@@ -95,6 +96,12 @@ function App() {
       getRedirectUrl();
     }
   }, [id]);
+
+  addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {
+      createRedirectUrl();
+    }
+  });
 
   const copyText = () => {
     navigator.clipboard.writeText(newBitlyAddress);
