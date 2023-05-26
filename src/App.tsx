@@ -97,12 +97,6 @@ function App() {
     }
   }, [id]);
 
-  addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {
-      createRedirectUrl();
-    }
-  });
-
   const copyText = () => {
     navigator.clipboard.writeText(newBitlyAddress);
   };
@@ -117,6 +111,11 @@ function App() {
       alignContent="center"
       justifyContent="center"
       flexDirection="column"
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          createRedirectUrl();
+        }
+      }}
     >
       <Grid2 flexDirection="column">
         <TextField
