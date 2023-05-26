@@ -12,9 +12,8 @@ const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // B64
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
-
-const createShortUrlEndpoint =
-  "https://hilarious-dieffenbachia-9af0ce.netlify.app/.netlify/functions/createShortUrl";
+const createShortUrlEndpoint = process.env.REACT_APP_CREATE_SHORT_URL_ENDPOINT;
+const getLongUrlEndpoint = process.env.REACT_APP_GET_LONG_URL_ENDPOINT;
 
 function App() {
   const [input, setInput] = useState<string>("");
@@ -36,32 +35,33 @@ function App() {
   };
 
   const getRedirectUrl = () => {
-    setLoading(true);
-    fetch("/.netlify/functions/getLongUrl", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ id }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res) {
-          setError("No URL found");
-        } else {
-          goToLongUrl(res.longUrl);
-        }
-        setLoading(false);
+    console.log("here");
+    if (getLongUrlEndpoint) {
+      setLoading(true);
+      fetch(getLongUrlEndpoint, {
+        method: "POST",
+        body: JSON.stringify({ id }),
       })
-      .catch((res) => {
-        setError(res);
-        setLoading(false);
-      });
+        .then((res) => res.json())
+        .then((res) => {
+          console.log({ res });
+          if (!res) {
+            setError("No URL found");
+          } else {
+            goToLongUrl(res.longUrl);
+          }
+          setLoading(false);
+        })
+        .catch((res) => {
+          setError(res);
+          setLoading(false);
+        });
+    }
   };
 
   const goToLongUrl = (site: string) => {
     const cleanLink = addPrefixIfNeeded(site);
+    console.log("in gotolongURL");
     window.open(cleanLink, "_self");
   };
 
@@ -73,26 +73,27 @@ function App() {
   };
 
   const createRedirectUrl = () => {
-    setLoading(true);
-    const newShortUrlId = createRandomString();
-    fetch(createShortUrlEndpoint, {
-      method: "POST",
-      body: JSON.stringify({ fullUrl: input, newShortUrlId }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log({ res });
-        setNewBitlyAddress(`${baseUrl}${res.id}`);
-        setLoading(false);
+    if (createShortUrlEndpoint) {
+      setLoading(true);
+      const newShortUrlId = createRandomString();
+      fetch(createShortUrlEndpoint, {
+        method: "POST",
+        body: JSON.stringify({ fullUrl: input, newShortUrlId }),
       })
-      .catch((res) => {
-        setError(res);
-        setLoading(false);
-      });
+        .then((res) => res.json())
+        .then((res) => {
+          setNewBitlyAddress(`${baseUrl}${res.id}`);
+          setLoading(false);
+        })
+        .catch((res) => {
+          setError(res);
+          setLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
-    if (id) {
+    if (id && getLongUrlEndpoint) {
       getRedirectUrl();
     }
   }, [id]);
