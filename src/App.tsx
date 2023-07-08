@@ -35,7 +35,6 @@ function App() {
   };
 
   const getRedirectUrl = () => {
-    console.log("here");
     if (getLongUrlEndpoint) {
       setLoading(true);
       fetch(getLongUrlEndpoint, {
@@ -61,7 +60,6 @@ function App() {
 
   const goToLongUrl = (site: string) => {
     const cleanLink = addPrefixIfNeeded(site);
-    console.log("in gotolongURL");
     window.open(cleanLink, "_self");
   };
 
