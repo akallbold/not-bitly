@@ -11,7 +11,6 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; // B64
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
 const createShortUrlEndpoint = process.env.REACT_APP_CREATE_SHORT_URL_ENDPOINT;
 const getLongUrlEndpoint = process.env.REACT_APP_GET_LONG_URL_ENDPOINT;
 
