@@ -71,19 +71,17 @@ function App() {
   };
 
   const createRedirectUrl = () => {
-    console.log({ createShortUrlEndpoint });
     if (createShortUrlEndpoint) {
       setLoading(true);
       const newShortUrlId = createRandomString();
-      console.log({ newShortUrlId });
       fetch(createShortUrlEndpoint, {
         method: "POST",
         body: JSON.stringify({ fullUrl: input, newShortUrlId }),
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log({ res });
-          setNewBitlyAddress(`${baseUrl}${res.id}`);
+          console.log(res.shortUrl);
+          setNewBitlyAddress(res.shortUrl);
           setLoading(false);
         })
         .catch((res) => {
