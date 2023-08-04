@@ -79,7 +79,6 @@ function App() {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res.shortUrl);
           setNewBitlyAddress(res.shortUrl);
           setLoading(false);
         })
@@ -142,7 +141,7 @@ function App() {
           {newBitlyAddress && !loading && (
             <>
               <a
-                href={`http://www.${newBitlyAddress}`}
+                href={newBitlyAddress}
                 target="_blank"
                 rel="noreferrer noopener"
               >
