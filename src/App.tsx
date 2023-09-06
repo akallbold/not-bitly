@@ -154,7 +154,7 @@ function App() {
       )}
 
       {newBitlyAddress && !loading && (
-        <Grid2>
+        <Grid2 justifyContent="center" display="flex" alignItems="center">
           <a href={newBitlyAddress} target="_blank" rel="noreferrer noopener">
             {newBitlyAddress}
           </a>
