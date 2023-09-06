@@ -5,15 +5,23 @@ export const theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         input: {
-          backgroundColor: "#ffffff",
-          borderRadius: 4,
+          backgroundColor: "#E0E5EC",
+          borderRadius: "18px",
+          border: "white 1px solid",
         },
         root: {
           backgroundColor: "#ffffff",
         },
       },
     },
-    // MuiButton: { boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }, // Slightly larger shadow},
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: "18px",
+          border: "white 1px solid",
+        },
+      },
+    },
   },
   palette: {
     primary: {
@@ -27,8 +35,7 @@ export const theme = createTheme({
     },
 
     text: {
-      primary: "#FFABA2",
-      secondary: "#FFABA2",
+      primary: "#A3B1C6",
     },
     divider: "#00000050",
   },

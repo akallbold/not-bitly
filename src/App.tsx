@@ -121,7 +121,10 @@ function App() {
           onChange={(e) => setInput(e.target.value)}
           variant="outlined"
           value={input}
-          sx={{ width: "100%" }}
+          sx={{
+            width: "100%",
+            color: "primary.dark",
+          }}
         />
         <Button
           onClick={createRedirectUrl}
@@ -133,34 +136,33 @@ function App() {
             backgroundColor: "primary.light",
             color: "primary.dark",
             margin: "1rem 0",
+            borderRadius: "18px",
+            "&:hover": {
+              backgroundColor: "primary.dark",
+              color: "primary.light",
+            },
           }}
         >
           get shortened url
         </Button>
       </Grid2>
-      <Grid2>
-        <Grid2
-          flexDirection="row"
-          alignContent="center"
-          justifyContent="center"
-        >
-          {loading && <CircularProgress />}
-          {newBitlyAddress && !loading && (
-            <>
-              <a
-                href={newBitlyAddress}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {newBitlyAddress}
-              </a>
-              <IconButton onClick={copyText}>
-                <ContentCopyIcon />
-              </IconButton>
-            </>
-          )}
+
+      {loading && (
+        <Grid2 justifyContent="center" display="flex">
+          <CircularProgress />
         </Grid2>
-      </Grid2>
+      )}
+
+      {newBitlyAddress && !loading && (
+        <Grid2>
+          <a href={newBitlyAddress} target="_blank" rel="noreferrer noopener">
+            {newBitlyAddress}
+          </a>
+          <IconButton onClick={copyText}>
+            <ContentCopyIcon />
+          </IconButton>
+        </Grid2>
+      )}
     </Grid2>
   );
 }
