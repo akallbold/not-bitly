@@ -114,6 +114,7 @@ function App() {
           createRedirectUrl();
         }
       }}
+      sx={{ backgroundColor: "primary.light", height: "100vh" }}
     >
       <Grid2 flexDirection="column">
         <TextField
@@ -126,9 +127,15 @@ function App() {
           onClick={createRedirectUrl}
           variant="contained"
           fullWidth
-          sx={{ marginTop: "1rem" }}
+          sx={{
+            boxShadow:
+              "9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px  rgba(255,255,255, 0.5);",
+            backgroundColor: "primary.light",
+            color: "primary.dark",
+            margin: "1rem 0",
+          }}
         >
-          Get Shortened URL
+          get shortened url
         </Button>
       </Grid2>
       <Grid2>

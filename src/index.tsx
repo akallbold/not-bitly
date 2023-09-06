@@ -4,18 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#000000", // black
-    },
-    secondary: {
-      main: "#ffffff", // white
-    },
-  },
-});
 // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
